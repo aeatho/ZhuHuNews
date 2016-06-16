@@ -1,5 +1,6 @@
 package com.loqua.zhuhunews.core.http;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.loqua.zhuhunews.entity.HttpResult;
 import com.loqua.zhuhunews.entity.Subject;
 import java.util.List;
@@ -32,7 +33,12 @@ public class HttpMethods {
     OkHttpClient.Builder builder = new OkHttpClient.Builder();
     builder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
-    retrofit = new Retrofit.Builder().client(builder.build())
+    //builder.addInterceptor(new StethoInterceptor());
+
+    OkHttpClient okHttpClient = builder.build();
+    okHttpClient.networkInterceptors().add(new StethoInterceptor());
+
+    retrofit = new Retrofit.Builder().client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .baseUrl(BASE_URL)

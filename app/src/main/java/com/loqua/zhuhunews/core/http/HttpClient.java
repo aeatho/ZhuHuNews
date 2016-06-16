@@ -1,5 +1,6 @@
 package com.loqua.zhuhunews.core.http;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.loqua.zhuhunews.BuildConfig;
@@ -39,8 +40,10 @@ public class HttpClient {
         // Log信息拦截器
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //设置 Debug Log 模式
+        // 设置 Debug Log 模式
         builder.addInterceptor(loggingInterceptor);
+        // 增加stetho
+        builder.addInterceptor(new StethoInterceptor());
       }
 
       /**
@@ -95,6 +98,12 @@ public class HttpClient {
 
       //以上设置结束，才能build(),不然设置白搭
       OkHttpClient okHttpClient = builder.build();
+
+      //final @Nullable File baseDir = context.getCacheDir();
+      //if (baseDir != null) {
+      //  final File cacheDir = new File(baseDir, "HttpResponseCache");
+      //  okHttpClient.setCache(new Cache(cacheDir, HTTP_RESPONSE_DISK_CACHE_MAX_SIZE));
+      //}
 
       Gson gson = new GsonBuilder()
           //配置你的Gson

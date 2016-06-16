@@ -1,19 +1,39 @@
 apply plugin: 'com.android.application'
 
+def app = rootProject.ext.android
+def depends = rootProject.ext.dependencies
+
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.3"
+
+  compileSdkVersion app.compileSdkVersion
+  buildToolsVersion app.buildToolsVersion
 
   defaultConfig {
-    applicationId "com.loqua.zhuhunews"
-    minSdkVersion 14
-    targetSdkVersion 23
-    versionCode 1
-    versionName "1.0"
+    applicationId app.applicationId
+    minSdkVersion app.minSdkVersion
+    targetSdkVersion app.targetSdkVersion
+    versionCode app.versionCode
+    versionName app.versionName
+    resConfigs app.resConfigs
+
+    //    ndk {
+    //      //设置支持的SO库架构
+    //      abiFilters 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+    //    }
   }
+  //  signingConfigs {
+  //    unovo {
+  //      storeFile file(RELEASE_STORE_FILE)
+  //      storePassword RELEASE_STORE_PASSWORD
+  //      keyAlias RELEASE_KEY_ALIAS
+  //      keyPassword RELEASE_KEY_PASSWORD
+  //    }
+  //  }
   buildTypes {
     release {
-      minifyEnabled false
+      minifyEnabled true
+      shrinkResources true
+      //      signingConfig signingConfigs.unovo
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
   }
@@ -22,22 +42,32 @@ android {
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
   //  testCompile 'junit:junit:4.12'
-  compile 'com.android.support:appcompat-v7:23.4.0'
-  compile 'com.squareup.retrofit2:retrofit:2.1.0'
-  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-  compile 'com.google.code.gson:gson:2.7'
+  compile rootProject.ext.dependencies.SupportAppCompatV7
+  compile rootProject.ext.dependencies.SupportAppcompatV4
 
-  compile 'com.squareup.okhttp3:okhttp:3.3.1'
-  compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+  compile rootProject.ext.dependencies.Retrofit
+  compile rootProject.ext.dependencies.RetrofitConverterGson
+  compile rootProject.ext.dependencies.RetrofitAdapterRxJava
+  compile rootProject.ext.dependencies.OkHttpLoggingInterceptor
+  compile rootProject.ext.dependencies.Gson
+  compile rootProject.ext.dependencies.Okttp
+  compile rootProject.ext.dependencies.Okio
 
-  compile 'io.reactivex:rxandroid:1.2.0'
-  compile 'io.reactivex:rxjava:1.1.5'
+  compile rootProject.ext.dependencies.RxJava
+  compile rootProject.ext.dependencies.RxAndroid
+  compile rootProject.ext.dependencies.RxPermission
+  compile rootProject.ext.dependencies.RxBinding
 
-  compile 'com.jakewharton:butterknife:7.0.1'
-  compile 'com.github.bumptech.glide:glide:3.7.0'
+  compile rootProject.ext.dependencies.Butterknife
+  compile rootProject.ext.dependencies.Glide
+  compile rootProject.ext.dependencies.GlideOkHttp
 
-  compile 'com.facebook.stetho:stetho:1.3.1'
-  compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+  compile rootProject.ext.dependencies.debugDependencies.leakCanary
+  compile rootProject.ext.dependencies.debugDependencies.blockcanary
+  compile rootProject.ext.dependencies.debugDependencies.stetho
+  compile rootProject.ext.dependencies.debugDependencies.stethoOkHttp
+
+  compile rootProject.ext.dependencies.releaseDependencies.leakCanary
+  compile rootProject.ext.dependencies.releaseDependencies.blockcanary
 }
