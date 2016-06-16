@@ -38,6 +38,6 @@ public class MainActivity extends AppCompatActivity {
   //进行网络请求
   private void getMovie() {
     HttpMethods.getInstance()
-        .getTopMovie(new ProgressSubscriber(getTopMovieOnNext, MainActivity.this), 0, 10);
+        .getTopMovie(new ProgressSubscriber<>(getTopMovieOnNext, MainActivity.this), 0, 10);
   }
 }
