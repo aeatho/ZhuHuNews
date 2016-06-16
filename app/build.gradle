@@ -1,10 +1,8 @@
 apply plugin: 'com.android.application'
 
-def app = rootProject.ext.android
-def depends = rootProject.ext.dependencies
 
 android {
-
+  def app = rootProject.ext.android
   compileSdkVersion app.compileSdkVersion
   buildToolsVersion app.buildToolsVersion
 
@@ -41,7 +39,7 @@ android {
 
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
-  //  testCompile 'junit:junit:4.12'
+  compile rootProject.ext.dependencies.testDependencies.Junit
 
   compile rootProject.ext.dependencies.SupportAppCompatV7
   compile rootProject.ext.dependencies.SupportAppcompatV4
@@ -63,11 +61,11 @@ dependencies {
   compile rootProject.ext.dependencies.Glide
   compile rootProject.ext.dependencies.GlideOkHttp
 
-  compile rootProject.ext.dependencies.debugDependencies.leakCanary
-  compile rootProject.ext.dependencies.debugDependencies.blockcanary
-  compile rootProject.ext.dependencies.debugDependencies.stetho
-  compile rootProject.ext.dependencies.debugDependencies.stethoOkHttp
+  compile rootProject.ext.dependencies.debugDependencies.LeakCanary
+  compile rootProject.ext.dependencies.debugDependencies.Blockcanary
+  compile rootProject.ext.dependencies.debugDependencies.Stetho
+  compile rootProject.ext.dependencies.debugDependencies.StethoOkHttp
 
-  compile rootProject.ext.dependencies.releaseDependencies.leakCanary
-  compile rootProject.ext.dependencies.releaseDependencies.blockcanary
+  compile rootProject.ext.dependencies.releaseDependencies.LeakCanary
+  compile rootProject.ext.dependencies.releaseDependencies.Blockcanary
 }
